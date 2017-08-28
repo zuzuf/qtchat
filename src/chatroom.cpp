@@ -2,25 +2,25 @@
 #include "ui_chatroom.h"
 
 ChatRoom::ChatRoom(QWidget *parent) :
-	QWidget(parent),
-	ui(new Ui::ChatRoom)
+    QDockWidget(parent),
+    ui(new Ui::ChatRoom)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
 }
 
 ChatRoom::~ChatRoom()
 {
-	delete ui;
+    delete ui;
 }
 
 void ChatRoom::changeEvent(QEvent *e)
 {
-	QWidget::changeEvent(e);
-	switch (e->type()) {
-	case QEvent::LanguageChange:
-		ui->retranslateUi(this);
-		break;
-	default:
-		break;
-	}
+    QDockWidget::changeEvent(e);
+    switch (e->type()) {
+    case QEvent::LanguageChange:
+        ui->retranslateUi(this);
+        break;
+    default:
+        break;
+    }
 }

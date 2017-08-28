@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>ChatRoom</class>
- <widget class="QWidget" name="ChatRoom">
+ <widget class="QDockWidget" name="ChatRoom">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>402</width>
+    <height>322</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>DockWidget</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QTextEdit" name="teHistory"/>
-   </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>New message:</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QTextEdit" name="teNewMessage"/>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pbSend">
-     <property name="text">
-      <string>Send</string>
-     </property>
-    </widget>
-   </item>
-  </layout>
+  <widget class="QWidget" name="dockWidgetContents">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTextEdit" name="teHistory">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>New message</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="teNewMessage"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pbSend">
+      <property name="text">
+       <string>Send</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections/>

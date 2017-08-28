@@ -39,7 +39,7 @@ void MessagingLayer::readData()
 void MessagingLayer::processMessage(const QByteArray &msg)
 {
 	QDataStream stream(msg);
-	stream.setVersion(QDataStream::Qt_5_6);
+    stream.setVersion(QDataStream::Qt_5_2);
 
 	qint32 msg_type;
 	stream >> msg_type;
@@ -67,7 +67,7 @@ void MessagingLayer::sendTextMessage(QString msg)
 {
 	QByteArray buffer;
 	QDataStream stream(&buffer, QIODevice::WriteOnly);
-	stream.setVersion(QDataStream::Qt_5_6);
+    stream.setVersion(QDataStream::Qt_5_2);
 	stream << qint32(MSG_TYPE_TEXT) << msg;
 
 	sendRawMessage(buffer);
@@ -77,7 +77,7 @@ void MessagingLayer::sendUserInfo(const QHash<QString, QVariant> &user_info)
 {
 	QByteArray buffer;
 	QDataStream stream(&buffer, QIODevice::WriteOnly);
-	stream.setVersion(QDataStream::Qt_5_6);
+    stream.setVersion(QDataStream::Qt_5_2);
 	stream << qint32(MSG_TYPE_USER_INFO) << user_info;
 
 	sendRawMessage(buffer);

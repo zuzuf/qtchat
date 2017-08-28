@@ -1,29 +1,25 @@
 #ifndef CHATROOM_H
 #define CHATROOM_H
 
-#if QT_VERSION >= 0x050000
-#include <QtWidgets/QWidget>
-#else
-#include <QtGui/QWidget>
-#endif
+#include <QDockWidget>
 
 namespace Ui {
-	class ChatRoom;
+class ChatRoom;
 }
 
-class ChatRoom : public QWidget
+class ChatRoom : public QDockWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ChatRoom(QWidget *parent = 0);
-	~ChatRoom();
+    explicit ChatRoom(QWidget *parent = 0);
+    ~ChatRoom();
 
 protected:
-	void changeEvent(QEvent *e);
+    void changeEvent(QEvent *e);
 
 private:
-	Ui::ChatRoom *ui;
+    Ui::ChatRoom *ui;
 };
 
 #endif // CHATROOM_H

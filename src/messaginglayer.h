@@ -8,6 +8,8 @@
 
 class QTcpSocket;
 
+#define QTCHAT_PORT  ('Q' * 256 + 'C')
+
 class MessagingLayer : public QObject
 {
 	Q_OBJECT
