@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,10 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/main.cpp \
-        src/mainwindow.cpp
+        src/mainwindow.cpp \
+    src/user.cpp \
+    src/messaginglayer.cpp \
+    src/chatroom.cpp
 
 HEADERS += \
-        src/mainwindow.h
+        src/mainwindow.h \
+    src/user.h \
+    src/messaginglayer.h \
+    src/chatroom.h
 
 FORMS += \
-        src/mainwindow.ui
+        src/mainwindow.ui \
+    src/chatroom.ui
