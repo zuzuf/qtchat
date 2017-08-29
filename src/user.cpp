@@ -3,6 +3,7 @@
 #include <QTcpSocket>
 #include "settings.h"
 #include <QDebug>
+#include "chatroom.h"
 
 User::User(QTcpSocket *sock)
 	: QObject(sock),
@@ -24,6 +25,7 @@ User::User(QObject *parent, const QHostAddress &addr)
     connect(sock, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(deleteLater()));
     connect(sock, SIGNAL(connected()), this, SLOT(onConnection()));
     connect(ml, SIGNAL(newUserInfo(QHash<QString,QVariant>)), this, SLOT(updateUserInfo(QHash<QString,QVariant>)));
+    connect(ml, SIGNAL(newTextMessage(QUuid,QString)), this, SLOT(publishMessage(QUuid,QString)));
 
     sock->setSocketOption(QTcpSocket::LowDelayOption, 1);
     sock->setSocketOption(QTcpSocket::KeepAliveOption, 1);
@@ -55,4 +57,12 @@ const QHostAddress &User::getAddress() const
 void User::onConnection()
 {
     ml->sendUserInfo(Settings::instance()->getUserInfo());
+}
+
+void User::publishMessage(const QUuid &chatroom_uuid, const QString &msg)
+{
+    const QUuid &author = user_info["UUID"].toUuid();
+    ChatRoom *room = ChatRoom::instance(chatroom_uuid);
+    room->addUser(author);
+    room->pushMessage(author, msg);
 }

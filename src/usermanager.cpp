@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QUuid>
 #include <QApplication>
+#include "chatroom.h"
 
 UserManager *UserManager::s_instance = nullptr;
 UserManager *UserManager::instance()
@@ -77,6 +78,7 @@ void UserManager::readDatagram()
                     connect(u, SIGNAL(infoUpdated()), this, SLOT(notifyUpdate()));
 
                     users[uuid] = u;
+                    ChatRoom::instance()->addUser(uuid);
                     emit usersUpdated();
                 }
             }
@@ -101,7 +103,10 @@ void UserManager::notifyTheWorld()
 void UserManager::refreshUserList()
 {
     for(User *u : users)
+    {
+        ChatRoom::instance()->removeUser(u->getUserInfo()["UUID"].toUuid());
         u->deleteLater();
+    }
 
     users.clear();
 
@@ -127,6 +132,7 @@ void UserManager::handleIncommingConnections()
         connect(u, &User::infoUpdated, [=]()
         {
             UserManager::instance()->users[u->getUserInfo()["UUID"].toUuid()] = u;
+            ChatRoom::instance()->addUser(u->getUserInfo()["UUID"].toUuid());
 
             connect(u, SIGNAL(destroyed(QObject*)), UserManager::instance(), SLOT(deleteUser(QObject*)));
             connect(u, SIGNAL(infoUpdated()), UserManager::instance(), SLOT(notifyUpdate()));

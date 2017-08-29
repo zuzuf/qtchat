@@ -1,6 +1,7 @@
 #include "messaginglayer.h"
 #include <QTcpSocket>
 #include <QDataStream>
+#include <QUuid>
 
 MessagingLayer::MessagingLayer(QTcpSocket *sock)
 	: QObject(sock),
@@ -48,8 +49,9 @@ void MessagingLayer::processMessage(const QByteArray &msg)
 	case MSG_TYPE_TEXT:
 		{
 			QString text;
-			stream >> text;
-			emit newTextMessage(text);
+            QUuid chatroom_uuid;
+            stream >> chatroom_uuid >> text;
+            emit newTextMessage(chatroom_uuid, text);
 		}
 		break;
 
@@ -63,12 +65,12 @@ void MessagingLayer::processMessage(const QByteArray &msg)
 	}
 }
 
-void MessagingLayer::sendTextMessage(QString msg)
+void MessagingLayer::sendTextMessage(const QUuid &chatroom_uuid, const QString &msg)
 {
 	QByteArray buffer;
 	QDataStream stream(&buffer, QIODevice::WriteOnly);
     stream.setVersion(QDataStream::Qt_5_2);
-	stream << qint32(MSG_TYPE_TEXT) << msg;
+    stream << qint32(MSG_TYPE_TEXT) << chatroom_uuid << msg;
 
 	sendRawMessage(buffer);
 }

@@ -7,6 +7,7 @@
 #include <QVariant>
 
 class QTcpSocket;
+class QUuid;
 
 #define QTCHAT_PORT  ('Q' * 256 + 'C')
 
@@ -31,11 +32,11 @@ public:
 	explicit MessagingLayer(QTcpSocket *sock);
 
 signals:
-	void newTextMessage(QString);
+    void newTextMessage(const QUuid &chatroom_uuid, const QString&);
 	void newUserInfo(QHash<QString, QVariant> user_info);
 
 public slots:
-	void sendTextMessage(QString msg);
+    void sendTextMessage(const QUuid &chatroom_uuid, const QString &msg);
 	void sendUserInfo(const QHash<QString, QVariant> &user_info);
 
 private slots:

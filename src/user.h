@@ -31,6 +31,7 @@ public slots:
 
 private slots:
 	void updateUserInfo(const QHash<QString, QVariant> &user_info);
+    void publishMessage(const QUuid &chatroom_uuid, const QString &msg);
     void onConnection();
 
 private:

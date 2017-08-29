@@ -3,6 +3,7 @@
 #include "settings.h"
 #include "user.h"
 #include "usermanager.h"
+#include "chatroom.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_Settings, SIGNAL(triggered(bool)), Settings::instance(), SLOT(open()));
 
     connect(UserManager::instance(), SIGNAL(usersUpdated()), this, SLOT(updateUserList()));
+
+    ChatRoom::instance();
 }
 
 MainWindow::~MainWindow()
