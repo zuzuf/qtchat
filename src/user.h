@@ -15,7 +15,7 @@ class User : public QObject
 {
 	Q_OBJECT
 public:
-	explicit User(QTcpSocket *sock);
+    explicit User(QTcpSocket *sock);
     explicit User(QObject *parent, const QHostAddress &addr);
 
 	MessagingLayer *getMessagingLayer() const;
@@ -31,10 +31,11 @@ public slots:
 
 private slots:
 	void updateUserInfo(const QHash<QString, QVariant> &user_info);
+    void onConnection();
 
 private:
     const QHostAddress address;
-	QTcpSocket *sock;
+    QTcpSocket *sock;
 	MessagingLayer *ml;
 
 	QHash<QString, QVariant> user_info;

@@ -45,7 +45,7 @@ private slots:
 
 private:
 	QTcpSocket *sock;
-	STATE state = STATE_READ_DATA;
+    STATE state = STATE_READ_SIZE;
 	qint64 message_size;
 	QByteArray msg;
 };

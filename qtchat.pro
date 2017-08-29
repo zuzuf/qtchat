@@ -31,14 +31,16 @@ SOURCES += \
     src/user.cpp \
     src/messaginglayer.cpp \
     src/chatroom.cpp \
-    src/settings.cpp
+    src/settings.cpp \
+    src/usermanager.cpp
 
 HEADERS += \
         src/mainwindow.h \
     src/user.h \
     src/messaginglayer.h \
     src/chatroom.h \
-    src/settings.h
+    src/settings.h \
+    src/usermanager.h
 
 FORMS += \
         src/mainwindow.ui \

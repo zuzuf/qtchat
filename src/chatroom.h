@@ -2,6 +2,8 @@
 #define CHATROOM_H
 
 #include <QDockWidget>
+#include <QUuid>
+#include <QList>
 
 namespace Ui {
 class ChatRoom;

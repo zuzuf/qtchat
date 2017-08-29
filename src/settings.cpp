@@ -1,6 +1,7 @@
 #include "settings.h"
 #include "ui_settings.h"
 #include <QSettings>
+#include <QUuid>
 
 Settings *Settings::s_instance = nullptr;
 
@@ -43,33 +44,46 @@ void Settings::changeEvent(QEvent *e)
 
 void Settings::loadSettings()
 {
-    values.clear();
+    settings.clear();
+    user_info.clear();
 
-    QSettings settings;
-    settings.beginGroup("main");
-    settings.endGroup();
+    QSettings config;
+    config.beginGroup("main");
+    config.endGroup();
 
-    settings.beginGroup("user");
-    values["Nickname"] = settings.value("Nickname", QString::fromUtf8(qgetenv("USER")));
-    settings.endGroup();
+    config.beginGroup("user");
+    user_info["Nickname"] = config.value("Nickname", QString::fromUtf8(qgetenv("USER")));
+    user_info["UUID"] = config.value("UUID", QUuid::createUuid());
+    config.endGroup();
 
-    ui->leNickname->setText(values["Nickname"].toString());
+    ui->leNickname->setText(user_info["Nickname"].toString());
 }
 
 void Settings::saveSettings()
 {
-    QSettings settings;
-    settings.beginGroup("main");
-    settings.endGroup();
+    user_info["Nickname"] = ui->leNickname->text();
 
-    settings.beginGroup("user");
-    settings.setValue("Nickname", ui->leNickname->text());
-    settings.endGroup();
+    QSettings config;
+    config.beginGroup("main");
+    config.endGroup();
+
+    config.beginGroup("user");
+    config.setValue("Nickname", user_info["Nickname"]);
+    config.setValue("UUID", user_info["UUID"]);
+    config.endGroup();
 }
 
 QVariant Settings::getSetting(const QString &key) const
 {
-    if (values.contains(key))
-        return values[key];
-    return QVariant();
+    return settings[key];
+}
+
+QVariant Settings::getUserInfo(const QString &key) const
+{
+    return user_info[key];
+}
+
+const QHash<QString, QVariant> &Settings::getUserInfo() const
+{
+    return user_info;
 }

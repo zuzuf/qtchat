@@ -19,6 +19,8 @@ public:
     ~Settings();
 
     QVariant getSetting(const QString &key) const;
+    QVariant getUserInfo(const QString &key) const;
+    const QHash<QString, QVariant> &getUserInfo() const;
 
 protected:
     void changeEvent(QEvent *e);
@@ -29,7 +31,8 @@ protected slots:
 
 private:
     Ui::Settings *ui;
-    QHash<QString, QVariant> values;
+    QHash<QString, QVariant> settings;
+    QHash<QString, QVariant> user_info;
 
 private:
     static Settings *s_instance;

@@ -71,21 +71,33 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Exit">
+   <property name="icon">
+    <iconset theme="application-exit"/>
+   </property>
    <property name="text">
     <string>&amp;Exit</string>
    </property>
   </action>
   <action name="action_About_QtChat">
+   <property name="icon">
+    <iconset theme="help-about"/>
+   </property>
    <property name="text">
     <string>&amp;About QtChat</string>
    </property>
   </action>
   <action name="action_About_Qt">
+   <property name="icon">
+    <iconset theme="help-about"/>
+   </property>
    <property name="text">
     <string>&amp;About Qt</string>
    </property>
   </action>
   <action name="action_Settings">
+   <property name="icon">
+    <iconset theme="preferences-other"/>
+   </property>
    <property name="text">
     <string>&amp;Settings</string>
    </property>
