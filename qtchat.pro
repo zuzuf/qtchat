@@ -33,7 +33,11 @@ SOURCES += \
     src/chatroom.cpp \
     src/settings.cpp \
     src/usermanager.cpp \
-    src/textedit.cpp
+    src/textedit.cpp \
+    src/userlist.cpp \
+    src/userwidget.cpp \
+    src/sendfiledialog.cpp \
+    src/receivefiledialog.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -42,9 +46,15 @@ HEADERS += \
     src/chatroom.h \
     src/settings.h \
     src/usermanager.h \
-    src/textedit.h
+    src/textedit.h \
+    src/userlist.h \
+    src/userwidget.h \
+    src/sendfiledialog.h \
+    src/receivefiledialog.h
 
 FORMS += \
         src/mainwindow.ui \
     src/chatroom.ui \
-    src/settings.ui
+    src/settings.ui \
+    src/sendfiledialog.ui \
+    src/receivefiledialog.ui
