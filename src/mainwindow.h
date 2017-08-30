@@ -23,6 +23,11 @@ protected:
 
 private:
     Ui::MainWindow *ui;
+
+private:
+    static MainWindow *s_instance;
+public:
+    static MainWindow *getInstance();
 };
 
 #endif // MAINWINDOW_H

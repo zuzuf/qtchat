@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>673</width>
     <height>300</height>
    </rect>
   </property>
@@ -14,6 +14,12 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="maximumSize">
+    <size>
+     <width>250</width>
+     <height>16777215</height>
+    </size>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="label">
@@ -39,7 +45,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>673</width>
      <height>29</height>
     </rect>
    </property>
@@ -72,7 +78,8 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Exit">
    <property name="icon">
-    <iconset theme="application-exit"/>
+    <iconset theme="application-exit">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;Exit</string>
@@ -80,7 +87,8 @@
   </action>
   <action name="action_About_QtChat">
    <property name="icon">
-    <iconset theme="help-about"/>
+    <iconset theme="help-about">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;About QtChat</string>
@@ -88,7 +96,8 @@
   </action>
   <action name="action_About_Qt">
    <property name="icon">
-    <iconset theme="help-about"/>
+    <iconset theme="help-about">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;About Qt</string>
@@ -96,7 +105,8 @@
   </action>
   <action name="action_Settings">
    <property name="icon">
-    <iconset theme="preferences-other"/>
+    <iconset theme="preferences-other">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>&amp;Settings</string>

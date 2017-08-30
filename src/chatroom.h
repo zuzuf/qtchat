@@ -9,6 +9,8 @@ namespace Ui {
 class ChatRoom;
 }
 
+class TextEdit;
+
 class ChatRoom : public QDockWidget
 {
     Q_OBJECT
@@ -36,6 +38,7 @@ private:
     Ui::ChatRoom *ui;
     QUuid uuid;
     QSet<QUuid> users;
+    TextEdit *teNewMessage;
 
 private:
     static QHash<QUuid, ChatRoom *> *s_instance;

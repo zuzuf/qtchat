@@ -32,7 +32,8 @@ SOURCES += \
     src/messaginglayer.cpp \
     src/chatroom.cpp \
     src/settings.cpp \
-    src/usermanager.cpp
+    src/usermanager.cpp \
+    src/textedit.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -40,7 +41,8 @@ HEADERS += \
     src/messaginglayer.h \
     src/chatroom.h \
     src/settings.h \
-    src/usermanager.h
+    src/usermanager.h \
+    src/textedit.h
 
 FORMS += \
         src/mainwindow.ui \

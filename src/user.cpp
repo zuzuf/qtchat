@@ -11,7 +11,6 @@ User::User(QTcpSocket *sock)
 	  sock(sock),
 	  ml(new MessagingLayer(sock))
 {
-	connect(ml, SIGNAL(newUserInfo(QHash<QString,QVariant>)), this, SLOT(updateUserInfo(QHash<QString,QVariant>)));
     onConnection();
 }
 
@@ -24,11 +23,6 @@ User::User(QObject *parent, const QHostAddress &addr)
     connect(sock, SIGNAL(disconnected()), this, SLOT(deleteLater()));
     connect(sock, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(deleteLater()));
     connect(sock, SIGNAL(connected()), this, SLOT(onConnection()));
-    connect(ml, SIGNAL(newUserInfo(QHash<QString,QVariant>)), this, SLOT(updateUserInfo(QHash<QString,QVariant>)));
-    connect(ml, SIGNAL(newTextMessage(QUuid,QString)), this, SLOT(publishMessage(QUuid,QString)));
-
-    sock->setSocketOption(QTcpSocket::LowDelayOption, 1);
-    sock->setSocketOption(QTcpSocket::KeepAliveOption, 1);
 
     sock->connectToHost(address, QTCHAT_PORT);
 }
@@ -56,6 +50,12 @@ const QHostAddress &User::getAddress() const
 
 void User::onConnection()
 {
+    connect(ml, SIGNAL(newUserInfo(QHash<QString,QVariant>)), this, SLOT(updateUserInfo(QHash<QString,QVariant>)));
+    connect(ml, SIGNAL(newTextMessage(QUuid,QString)), this, SLOT(publishMessage(QUuid,QString)));
+
+    sock->setSocketOption(QTcpSocket::LowDelayOption, 1);
+    sock->setSocketOption(QTcpSocket::KeepAliveOption, 1);
+
     ml->sendUserInfo(Settings::instance()->getUserInfo());
 }
 

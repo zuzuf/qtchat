@@ -5,10 +5,19 @@
 #include "usermanager.h"
 #include "chatroom.h"
 
+MainWindow *MainWindow::s_instance = nullptr;
+
+MainWindow *MainWindow::getInstance()
+{
+    return s_instance;
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    s_instance = this;
+
     ui->setupUi(this);
 
     ui->mainToolBar->addAction(ui->action_Settings);

@@ -31,7 +31,7 @@ void MessagingLayer::readData()
 			if (msg.size() ==  message_size)
 			{
 				state = STATE_READ_SIZE;
-				processMessage(msg);
+                processMessage(qUncompress(msg));
 			}
 			break;
 		}
@@ -87,7 +87,8 @@ void MessagingLayer::sendUserInfo(const QHash<QString, QVariant> &user_info)
 
 void MessagingLayer::sendRawMessage(const QByteArray &msg)
 {
-	const qint64 msg_size = msg.size();
+    const QByteArray &data = qCompress(msg);
+    const qint64 msg_size = data.size();
 	sock->write((const char*)&msg_size, sizeof(qint64));
-	sock->write(msg);
+    sock->write(data);
 }

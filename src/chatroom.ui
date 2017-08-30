@@ -32,7 +32,17 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="teNewMessage"/>
+       <widget class="QFrame" name="frmNewMessage">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pbSend">
@@ -44,9 +54,9 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="vlUsers">
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="lblUsers">
         <property name="text">
          <string>Users</string>
         </property>
