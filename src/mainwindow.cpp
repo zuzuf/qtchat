@@ -4,6 +4,7 @@
 #include "user.h"
 #include "usermanager.h"
 #include "chatroom.h"
+#include "userlist.h"
 
 MainWindow *MainWindow::s_instance = nullptr;
 
@@ -21,6 +22,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->mainToolBar->addAction(ui->action_Settings);
+
+    user_list = new UserList;
+    ui->frmUsers->setLayout(new QVBoxLayout);
+    ui->frmUsers->layout()->addWidget(user_list);
 
     connect(ui->action_Exit, SIGNAL(triggered(bool)), qApp, SLOT(quit()));
     connect(ui->pbRefresh, SIGNAL(pressed()), UserManager::instance(), SLOT(refreshUserList()));
@@ -51,7 +56,7 @@ void MainWindow::changeEvent(QEvent *e)
 
 void MainWindow::updateUserList()
 {
-    ui->lwUsers->clear();
-    for(User *u : UserManager::instance()->getUserList())
-        ui->lwUsers->addItem(u->getUserInfo()["Nickname"].toString());
+    user_list->clear();
+    for(const QUuid &u : UserManager::instance()->getUserList().keys())
+        user_list->addUser(u);
 }

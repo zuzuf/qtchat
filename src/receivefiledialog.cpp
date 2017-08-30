@@ -6,6 +6,7 @@ ReceiveFileDialog::ReceiveFileDialog(QWidget *parent) :
     ui(new Ui::ReceiveFileDialog)
 {
     ui->setupUi(this);
+    ui->pbOk->setVisible(false);
 }
 
 ReceiveFileDialog::~ReceiveFileDialog()

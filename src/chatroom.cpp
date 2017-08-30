@@ -142,7 +142,5 @@ void ChatRoom::pushMessage(const QUuid &author, const QString &msg)
     }
     else
         author_name = Settings::instance()->getUserInfo("Nickname").toString();
-    ui->teHistory->append("<b style=\"color:#3f9fcf\">" + QDateTime::currentDateTime().toString(Qt::SystemLocaleShortDate) + " " + author_name + ":</b>");
-    ui->teHistory->append("<table><tr><td> </td><td>" + msg + "</td></tr></table>");
-    ui->teHistory->append("");
+    ui->teHistory->append("<table><tr><td><b style=\"color:#3f9fcf\">" + QDateTime::currentDateTime().toString(Qt::SystemLocaleShortDate) + " " + author_name + ":</b></td><td>" + msg + "</td></tr></table>");
 }

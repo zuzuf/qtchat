@@ -7,6 +7,8 @@ namespace Ui {
 class MainWindow;
 }
 
+class UserList;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -23,6 +25,7 @@ protected:
 
 private:
     Ui::MainWindow *ui;
+    UserList *user_list;
 
 private:
     static MainWindow *s_instance;

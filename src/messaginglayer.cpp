@@ -16,7 +16,7 @@ void MessagingLayer::readData()
 		switch(state)
 		{
 		case STATE_READ_SIZE:
-			if (sock->bytesAvailable() < sizeof(qint64))
+            if (sock->bytesAvailable() < qint64(sizeof(qint64)))
 				return;
 			sock->read((char*)&message_size, sizeof(message_size));
 			msg.clear();
@@ -62,7 +62,38 @@ void MessagingLayer::processMessage(const QByteArray &msg)
 			emit newUserInfo(user_info);
 		}
 		break;
-	}
+    case MSG_TYPE_FILE_CHUNK:
+        {
+            QUuid transfer_uuid;
+            QByteArray data;
+            stream >> transfer_uuid >> data;
+            emit newFileChunk(transfer_uuid, data);
+        }
+        break;
+    case MSG_TYPE_FILE_REQUEST:
+        {
+            QUuid transfer_uuid;
+            QString filename;
+            qint64 file_size;
+            stream >> transfer_uuid >> filename >> file_size;
+            emit newFileRequest(transfer_uuid, filename, file_size);
+        }
+        break;
+    case MSG_TYPE_FILE_ACK:
+        {
+            QUuid transfer_uuid;
+            stream >> transfer_uuid;
+            emit newFileACK(transfer_uuid);
+        }
+        break;
+    case MSG_TYPE_FILE_CANCEL:
+        {
+            QUuid transfer_uuid;
+            stream >> transfer_uuid;
+            emit newFileCancel(transfer_uuid);
+        }
+        break;
+    }
 }
 
 void MessagingLayer::sendTextMessage(const QUuid &chatroom_uuid, const QString &msg)
@@ -91,4 +122,44 @@ void MessagingLayer::sendRawMessage(const QByteArray &msg)
     const qint64 msg_size = data.size();
 	sock->write((const char*)&msg_size, sizeof(qint64));
     sock->write(data);
+}
+
+void MessagingLayer::sendFileChunk(const QUuid &transfer_uuid, const QByteArray &data)
+{
+    QByteArray buffer;
+    QDataStream stream(&buffer, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_5_2);
+    stream << qint32(MSG_TYPE_FILE_CHUNK) << transfer_uuid << data;
+
+    sendRawMessage(buffer);
+}
+
+void MessagingLayer::sendFileRequest(const QUuid &transfer_uuid, const QString &filename, qint64 file_size)
+{
+    QByteArray buffer;
+    QDataStream stream(&buffer, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_5_2);
+    stream << qint32(MSG_TYPE_FILE_REQUEST) << transfer_uuid << filename << file_size;
+
+    sendRawMessage(buffer);
+}
+
+void MessagingLayer::sendFileACK(const QUuid &transfer_uuid)
+{
+    QByteArray buffer;
+    QDataStream stream(&buffer, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_5_2);
+    stream << qint32(MSG_TYPE_FILE_ACK) << transfer_uuid;
+
+    sendRawMessage(buffer);
+}
+
+void MessagingLayer::sendFileCancel(const QUuid &transfer_uuid)
+{
+    QByteArray buffer;
+    QDataStream stream(&buffer, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_5_2);
+    stream << qint32(MSG_TYPE_FILE_CANCEL) << transfer_uuid;
+
+    sendRawMessage(buffer);
 }
