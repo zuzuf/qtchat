@@ -9,6 +9,7 @@
 #include <QUuid>
 #include <QApplication>
 #include "chatroom.h"
+#include <QTimer>
 
 UserManager *UserManager::s_instance = nullptr;
 UserManager *UserManager::instance()
@@ -25,7 +26,9 @@ UserManager::UserManager()
     if (!server->listen(QHostAddress::Any, QTCHAT_PORT))
     {
         QMessageBox::critical(nullptr, tr("QtChat must stop"), tr("QtChat server could not start!"));
-        qApp->quit();
+        QTimer *timer = new QTimer;
+        connect(timer, SIGNAL(timeout()), qApp, SLOT(quit()));
+        timer->start(1000);
         return;
     }
 

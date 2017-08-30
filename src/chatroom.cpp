@@ -33,10 +33,19 @@ ChatRoom::ChatRoom(QWidget *parent, const QUuid &uuid) :
     ui->frmNewMessage->setLayout(new QVBoxLayout);
     ui->frmNewMessage->layout()->addWidget(teNewMessage);
 
+    QAction *a_send = new QAction("send");
+    a_send->setShortcut(QKeySequence("Ctrl+Return"));
+    teNewMessage->addAction(a_send);
+    teNewMessage->setContextMenuPolicy(Qt::ActionsContextMenu);
+    connect(a_send, SIGNAL(triggered(bool)), this, SLOT(sendMessage()));
+
     if (uuid.isNull())
     {
         ui->lwUsers->hide();
         ui->lblUsers->hide();
+
+        setFeatures(DockWidgetFloatable | DockWidgetMovable);
+        setWindowTitle("global");
     }
     connect(ui->pbSend, SIGNAL(pressed()), this, SLOT(sendMessage()));
     connect(UserManager::instance(), SIGNAL(usersUpdated()), this, SLOT(updateUserList()));
@@ -63,9 +72,12 @@ void ChatRoom::changeEvent(QEvent *e)
 void ChatRoom::sendMessage()
 {
     const QString msg = teNewMessage->toHtml();
+    teNewMessage->clear();
+    if (msg == teNewMessage->toHtml())
+        return;
+
     pushMessage(Settings::instance()->getUserInfo("UUID").toUuid(), msg);
 
-    teNewMessage->clear();
     for(const QUuid &_u : users)
     {
         User *u = UserManager::instance()->getUserList()[_u];
@@ -98,12 +110,23 @@ void ChatRoom::updateUserList()
 {
     ui->lwUsers->clear();
 
+    QString title;
+
     for(const QUuid &_u : users)
     {
         User *u = UserManager::instance()->getUserList()[_u];
         if (u)
-            ui->lwUsers->addItem(u->getUserInfo()["Nickname"].toString());
+        {
+            const QString &user_name = u->getUserInfo()["Nickname"].toString();
+            ui->lwUsers->addItem(user_name);
+            if (!title.isEmpty())
+                title += ", ";
+            title = "<" + user_name + ">";
+        }
     }
+
+    if (!uuid.isNull())
+        setWindowTitle(title);
 }
 
 void ChatRoom::pushMessage(const QUuid &author, const QString &msg)
@@ -119,6 +142,7 @@ void ChatRoom::pushMessage(const QUuid &author, const QString &msg)
     }
     else
         author_name = Settings::instance()->getUserInfo("Nickname").toString();
-    ui->teHistory->append("<b>" + QDateTime::currentDateTime().toString(Qt::SystemLocaleShortDate) + " " + author_name + ":</b>");
-    ui->teHistory->append("<div margin=\"30\">" + msg + "</div>");
+    ui->teHistory->append("<b style=\"color:#3f9fcf\">" + QDateTime::currentDateTime().toString(Qt::SystemLocaleShortDate) + " " + author_name + ":</b>");
+    ui->teHistory->append("<table><tr><td> </td><td>" + msg + "</td></tr></table>");
+    ui->teHistory->append("");
 }
