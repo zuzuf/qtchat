@@ -19,6 +19,8 @@ public:
 
 protected:
     void changeEvent(QEvent *e);
+    void loadGeometry();
+    void saveGeometry();
 
 private:
     Ui::MainWindow *ui;

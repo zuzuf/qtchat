@@ -5,6 +5,7 @@
 #include "usermanager.h"
 #include "chatroom.h"
 #include "userlist.h"
+#include <QSettings>
 
 MainWindow *MainWindow::s_instance = nullptr;
 
@@ -29,10 +30,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_About_Qt, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt()));
 
     ChatRoom::instance();
+
+    loadGeometry();
 }
 
 MainWindow::~MainWindow()
 {
+    saveGeometry();
     delete ui;
 }
 
@@ -46,4 +50,20 @@ void MainWindow::changeEvent(QEvent *e)
     default:
         break;
     }
+}
+
+void MainWindow::loadGeometry()
+{
+    QSettings settings;
+    settings.beginGroup("MainWindow");
+    setGeometry(settings.value("geometry", geometry()).toRect());
+    restoreState(settings.value("windowState", saveState()).toByteArray());
+}
+
+void MainWindow::saveGeometry()
+{
+    QSettings settings;
+    settings.beginGroup("MainWindow");
+    settings.setValue("geometry", geometry());
+    settings.setValue("windowState", saveState());
 }
