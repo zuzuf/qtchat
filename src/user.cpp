@@ -67,6 +67,7 @@ void User::publishMessage(const QUuid &chatroom_uuid, const QString &msg)
     ChatRoom *room = ChatRoom::instance(chatroom_uuid);
     room->addUser(author);
     room->pushMessage(author, msg);
+    room->show();
 }
 
 void User::handleNewFileRequest(const QUuid &transfer_uuid, const QString &filename, qint64 file_size)
