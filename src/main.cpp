@@ -6,6 +6,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     a.setApplicationName("Qtchat");
+    a.setQuitOnLastWindowClosed(false);
 
     MainWindow w;
     w.show();
