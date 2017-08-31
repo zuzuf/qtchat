@@ -95,6 +95,7 @@ void ReceiveFileDialog::startTransfer()
         cancelTransfer();
         return;
     }
+    ui->lblFilename->setText(filename);
     show();
     u->getMessagingLayer()->sendFileACK(uuid);
 }

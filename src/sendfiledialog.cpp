@@ -21,6 +21,7 @@ SendFileDialog::SendFileDialog(const QString &filename, const QUuid &receiver_uu
 
     ui->setupUi(this);
     ui->pbOk->setVisible(false);
+    ui->lblFilename->setText(filename);
 
     file = new QFile(filename, this);
     file->open(QIODevice::ReadOnly);
