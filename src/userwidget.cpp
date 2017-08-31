@@ -7,31 +7,26 @@
 #include <QAction>
 #include <QFileDialog>
 #include "sendfiledialog.h"
+#include "chatroom.h"
 
 UserWidget::UserWidget(const QUuid &uuid)
     : uuid(uuid)
 {
-    User *u = UserManager::instance()->getUser(uuid);
-
     setLayout(new QHBoxLayout);
 
-    QLabel *lbl_icon = new QLabel;
-    QIcon icon = QIcon::fromTheme("user-available");
-    lbl_icon->setPixmap(icon.pixmap(48,48));
+    lbl_icon = new QLabel;
     lbl_icon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     lbl_icon->setMinimumSize(48, 48);
     lbl_icon->setMaximumSize(48, 48);
     layout()->addWidget(lbl_icon);
-    if (u)
-    {
-        lbl_nickname = new QLabel(u->getUserInfo()["Nickname"].toString());
-        layout()->addWidget(lbl_nickname);
-        lbl_nickname->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
-        lbl_nickname->setMinimumHeight(48);
-        lbl_nickname->setMaximumHeight(48);
-    }
-    else
-        lbl_nickname = nullptr;
+
+    lbl_nickname = new QLabel;
+    lbl_nickname->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
+    lbl_nickname->setMinimumHeight(48);
+    lbl_nickname->setMaximumHeight(48);
+    layout()->addWidget(lbl_nickname);
+
+    updateInfo();
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
     setMinimumHeight(48);
@@ -41,7 +36,13 @@ UserWidget::UserWidget(const QUuid &uuid)
     connect(action_sendFile, SIGNAL(triggered(bool)), this, SLOT(sendFile()));
     addAction(action_sendFile);
 
+    QAction *action_privateChat = new QAction(tr("Private chat"));
+    connect(action_privateChat, SIGNAL(triggered(bool)), this, SLOT(startPrivateChat()));
+    addAction(action_privateChat);
+
     setContextMenuPolicy(Qt::ActionsContextMenu);
+
+    connect(UserManager::instance(), SIGNAL(usersUpdated()), this, SLOT(updateInfo()));
 }
 
 void UserWidget::sendFile()
@@ -52,4 +53,20 @@ void UserWidget::sendFile()
 
     SendFileDialog *send_dlg = new SendFileDialog(filename, uuid);
     send_dlg->show();
+}
+
+void UserWidget::startPrivateChat()
+{
+    ChatRoom::instance(QUuid::createUuid())->addUser(uuid);
+}
+
+void UserWidget::updateInfo()
+{
+    User *u = UserManager::instance()->getUser(uuid);
+    QIcon icon = QIcon::fromTheme("user-available");
+    lbl_icon->setPixmap(icon.pixmap(48,48));
+    if (u)
+        lbl_nickname->setText(u->getUserInfo()["Nickname"].toString());
+    else
+        lbl_nickname->setText(QString());
 }

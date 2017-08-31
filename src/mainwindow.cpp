@@ -21,22 +21,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    ui->mainToolBar->addAction(ui->action_Settings);
-
-    user_list = new UserList;
-    ui->frmUsers->setLayout(new QVBoxLayout);
-    ui->frmUsers->layout()->addWidget(user_list);
-
     // menu file
     connect(ui->action_Exit, SIGNAL(triggered(bool)), qApp, SLOT(quit()));
     connect(ui->action_Settings, SIGNAL(triggered(bool)), Settings::instance(), SLOT(open()));
 
     // menu help
     connect(ui->action_About_Qt, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt()));
-
-    connect(ui->pbRefresh, SIGNAL(pressed()), UserManager::instance(), SLOT(refreshUserList()));
-
-    connect(UserManager::instance(), SIGNAL(usersUpdated()), this, SLOT(updateUserList()));
 
     ChatRoom::instance();
 }
@@ -56,11 +46,4 @@ void MainWindow::changeEvent(QEvent *e)
     default:
         break;
     }
-}
-
-void MainWindow::updateUserList()
-{
-    user_list->clear();
-    for(const QUuid &u : UserManager::instance()->getUserList().keys())
-        user_list->addUser(u);
 }

@@ -3,8 +3,7 @@
 #include <QMimeData>
 #include <QFileInfo>
 #include <QImageReader>
-
-#include <QDebug>
+#include <QBuffer>
 
 TextEdit::TextEdit(QWidget *parent) : QTextEdit(parent)
 {
@@ -52,6 +51,18 @@ void TextEdit::dropImage(const QString &filepath)
             const QByteArray data = file.readAll().toBase64();
             textCursor().insertHtml("<img src=\"data:image/" + info.suffix().toLower() + ";base64," + data + "\"/>");
         }
+    }
+}
+
+void TextEdit::dropImage(const QImage &image)
+{
+    if (!image.isNull())
+    {
+        QBuffer buffer;
+        buffer.open(QIODevice::WriteOnly);
+        image.save(&buffer, "jpeg", 75);
+        const QByteArray data = buffer.buffer().toBase64();
+        textCursor().insertHtml("<img src=\"data:image/jpg;base64," + data + "\"/>");
     }
 }
 

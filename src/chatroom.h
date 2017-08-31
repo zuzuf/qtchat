@@ -10,6 +10,7 @@ class ChatRoom;
 }
 
 class TextEdit;
+class UserList;
 
 class ChatRoom : public QDockWidget
 {
@@ -29,7 +30,8 @@ public slots:
 
 protected slots:
     void sendMessage();
-    void updateUserList();
+    void updateTitle();
+    void takeScreenshot();
 
 protected:
     void changeEvent(QEvent *e);
@@ -39,6 +41,7 @@ private:
     QUuid uuid;
     QSet<QUuid> users;
     TextEdit *teNewMessage;
+    UserList *user_list;
 
 private:
     static QHash<QUuid, ChatRoom *> *s_instance;

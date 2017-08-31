@@ -49,6 +49,7 @@ void Settings::loadSettings()
 
     QSettings config;
     config.beginGroup("main");
+    settings["IncomingMessageCommand"] = config.value("IncomingMessageCommand");
     config.endGroup();
 
     config.beginGroup("user");
@@ -56,20 +57,25 @@ void Settings::loadSettings()
     user_info["UUID"] = config.value("UUID", QUuid::createUuid());
     config.endGroup();
 
+    ui->leIncomingMessageCommand->setText(settings["IncomingMessageCommand"].toString());
+
     ui->leNickname->setText(user_info["Nickname"].toString());
 }
 
 void Settings::saveSettings()
 {
+    settings["IncomingMessageCommand"] = ui->leIncomingMessageCommand->text();
     user_info["Nickname"] = ui->leNickname->text();
 
     QSettings config;
     config.beginGroup("main");
+    for(auto it = settings.begin() ; it != settings.end() ; ++it)
+        config.setValue(it.key(), it.value());
     config.endGroup();
 
     config.beginGroup("user");
-    config.setValue("Nickname", user_info["Nickname"]);
-    config.setValue("UUID", user_info["UUID"]);
+    for(auto it = user_info.begin() ; it != user_info.end() ; ++it)
+        config.setValue(it.key(), it.value());
     config.endGroup();
 }
 

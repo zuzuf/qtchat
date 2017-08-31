@@ -17,15 +17,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private slots:
-    void updateUserList();
-
 protected:
     void changeEvent(QEvent *e);
 
 private:
     Ui::MainWindow *ui;
-    UserList *user_list;
 
 private:
     static MainWindow *s_instance;

@@ -9,13 +9,14 @@ public:
     TextEdit(QWidget *parent = nullptr);
 
 protected:
-    virtual bool canInsertFromMimeData(const QMimeData* source) const;
+    virtual bool canInsertFromMimeData(const QMimeData *source) const;
 
-    virtual void insertFromMimeData(const QMimeData* source);
+    virtual void insertFromMimeData(const QMimeData *source);
 
-private:
-    void dropImage(const QString& filepath);
+public:
+    void dropImage(const QImage &image);
+    void dropImage(const QString &filepath);
 
-    void dropTextFile(const QUrl& url);
+    void dropTextFile(const QUrl &url);
 };
 #endif // TEXTEDIT_H
