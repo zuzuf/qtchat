@@ -38,10 +38,12 @@ ChatRoom::ChatRoom(QWidget *parent, const QUuid &uuid) :
     ui->setupUi(this);
     teNewMessage = new TextEdit;
     ui->frmNewMessage->setLayout(new QVBoxLayout);
+    ui->frmNewMessage->layout()->setContentsMargins(0,0,0,0);
     ui->frmNewMessage->layout()->addWidget(teNewMessage);
 
     user_list = new UserList;
     ui->frmUsers->setLayout(new QVBoxLayout);
+    ui->frmUsers->layout()->setContentsMargins(0,0,0,0);
     ui->frmUsers->layout()->addWidget(user_list);
 
     connect(ui->pbRefresh, SIGNAL(pressed()), UserManager::instance(), SLOT(refreshUserList()));
