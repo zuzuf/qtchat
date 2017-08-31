@@ -4,6 +4,7 @@
 #include "settings.h"
 #include <QDebug>
 #include "chatroom.h"
+#include "receivefiledialog.h"
 
 User::User(QTcpSocket *sock)
 	: QObject(sock),
@@ -52,6 +53,7 @@ void User::onConnection()
 {
     connect(ml, SIGNAL(newUserInfo(QHash<QString,QVariant>)), this, SLOT(updateUserInfo(QHash<QString,QVariant>)));
     connect(ml, SIGNAL(newTextMessage(QUuid,QString)), this, SLOT(publishMessage(QUuid,QString)));
+    connect(ml, SIGNAL(newFileRequest(QUuid,QString,qint64)), this, SLOT(handleNewFileRequest(QUuid,QString,qint64)));
 
     sock->setSocketOption(QTcpSocket::LowDelayOption, 1);
     sock->setSocketOption(QTcpSocket::KeepAliveOption, 1);
@@ -65,4 +67,9 @@ void User::publishMessage(const QUuid &chatroom_uuid, const QString &msg)
     ChatRoom *room = ChatRoom::instance(chatroom_uuid);
     room->addUser(author);
     room->pushMessage(author, msg);
+}
+
+void User::handleNewFileRequest(const QUuid &transfer_uuid, const QString &filename, qint64 file_size)
+{
+    new ReceiveFileDialog(filename, transfer_uuid, user_info["UUID"].toUuid(), file_size);
 }

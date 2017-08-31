@@ -27,6 +27,7 @@ private:
 
 public:
     const QHash<QUuid, User*> &getUserList() const;
+    User *getUser(const QUuid &uuid) const;
 
 signals:
     void usersUpdated();

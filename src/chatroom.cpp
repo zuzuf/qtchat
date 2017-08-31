@@ -80,7 +80,7 @@ void ChatRoom::sendMessage()
 
     for(const QUuid &_u : users)
     {
-        User *u = UserManager::instance()->getUserList()[_u];
+        User *u = UserManager::instance()->getUser(_u);
         if (u)
             u->getMessagingLayer()->sendTextMessage(uuid, msg);
     }
@@ -114,7 +114,7 @@ void ChatRoom::updateUserList()
 
     for(const QUuid &_u : users)
     {
-        User *u = UserManager::instance()->getUserList()[_u];
+        User *u = UserManager::instance()->getUser(_u);
         if (u)
         {
             const QString &user_name = u->getUserInfo()["Nickname"].toString();
@@ -134,7 +134,7 @@ void ChatRoom::pushMessage(const QUuid &author, const QString &msg)
     QString author_name;
     if (author != Settings::instance()->getUserInfo("UUID").toUuid())
     {
-        User *u = UserManager::instance()->getUserList()[author];
+        User *u = UserManager::instance()->getUser(author);
         if (!u)     // If author is unknown, discard the message
             return;
 

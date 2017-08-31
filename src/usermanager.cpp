@@ -165,3 +165,10 @@ const QHash<QUuid, User*> &UserManager::getUserList() const
 {
     return users;
 }
+
+User *UserManager::getUser(const QUuid &uuid) const
+{
+    if (users.contains(uuid))
+        return users.value(uuid);
+    return nullptr;
+}

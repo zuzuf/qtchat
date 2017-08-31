@@ -86,5 +86,38 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pbCancel</sender>
+   <signal>pressed()</signal>
+   <receiver>ReceiveFileDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>172</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>216</x>
+     <y>70</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbOk</sender>
+   <signal>pressed()</signal>
+   <receiver>ReceiveFileDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>260</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>216</x>
+     <y>70</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

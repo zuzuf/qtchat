@@ -6,11 +6,13 @@
 #include <QIcon>
 #include <QAction>
 #include <QFileDialog>
+#include "sendfiledialog.h"
 
 UserWidget::UserWidget(const QUuid &uuid)
     : uuid(uuid)
 {
-    User *u = UserManager::instance()->getUserList()[uuid];
+    User *u = UserManager::instance()->getUser(uuid);
+
     setLayout(new QHBoxLayout);
 
     QLabel *lbl_icon = new QLabel;
@@ -48,4 +50,6 @@ void UserWidget::sendFile()
     if (filename.isEmpty()) // Aborted
         return;
 
+    SendFileDialog *send_dlg = new SendFileDialog(filename, uuid);
+    send_dlg->show();
 }

@@ -33,6 +33,7 @@ private slots:
 	void updateUserInfo(const QHash<QString, QVariant> &user_info);
     void publishMessage(const QUuid &chatroom_uuid, const QString &msg);
     void onConnection();
+    void handleNewFileRequest(const QUuid &transfer_uuid, const QString &filename, qint64 file_size);
 
 private:
     const QHostAddress address;
