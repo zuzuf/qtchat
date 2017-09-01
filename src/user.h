@@ -34,6 +34,7 @@ private slots:
     void publishMessage(const QUuid &chatroom_uuid, const QString &msg);
     void onConnection();
     void handleNewFileRequest(const QUuid &transfer_uuid, const QString &filename, qint64 file_size);
+    void sendUserInfo();
 
 private:
     const QHostAddress address;

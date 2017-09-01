@@ -19,6 +19,10 @@ public slots:
     void startPrivateChat();
     void updateInfo();
 
+protected:
+    virtual void enterEvent(QEvent *event);
+    virtual void leaveEvent(QEvent *event);
+
 private:
     const QUuid uuid;
     QLabel *lbl_icon;

@@ -54,11 +54,18 @@ void User::onConnection()
     connect(ml, SIGNAL(newUserInfo(QHash<QString,QVariant>)), this, SLOT(updateUserInfo(QHash<QString,QVariant>)));
     connect(ml, SIGNAL(newTextMessage(QUuid,QString)), this, SLOT(publishMessage(QUuid,QString)));
     connect(ml, SIGNAL(newFileRequest(QUuid,QString,qint64)), this, SLOT(handleNewFileRequest(QUuid,QString,qint64)));
+    connect(Settings::instance(), SIGNAL(userInfoUpdated()), this, SLOT(sendUserInfo()));
 
     sock->setSocketOption(QTcpSocket::LowDelayOption, 1);
     sock->setSocketOption(QTcpSocket::KeepAliveOption, 1);
 
-    ml->sendUserInfo(Settings::instance()->getUserInfo());
+    sendUserInfo();
+}
+
+void User::sendUserInfo()
+{
+    if (sock->state() == QTcpSocket::ConnectedState)
+        ml->sendUserInfo(Settings::instance()->getUserInfo());
 }
 
 void User::publishMessage(const QUuid &chatroom_uuid, const QString &msg)

@@ -38,9 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QSystemTrayIcon *trayicon = new QSystemTrayIcon(this);
     QMenu *tray_menu = new QMenu(this);
     trayicon->setContextMenu(tray_menu);
-//    trayicon->setIcon(windowIcon());
-    // FIXME: use a true icon
-    trayicon->setIcon(QIcon::fromTheme("document-new"));
+    trayicon->setIcon(windowIcon());
     tray_menu->addAction(ui->action_Settings);
     tray_menu->addAction(ui->action_Exit);
 

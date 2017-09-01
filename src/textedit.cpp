@@ -60,9 +60,18 @@ void TextEdit::dropImage(const QImage &image)
     {
         QBuffer buffer;
         buffer.open(QIODevice::WriteOnly);
-        image.save(&buffer, "jpeg", 75);
-        const QByteArray data = buffer.buffer().toBase64();
-        textCursor().insertHtml("<img src=\"data:image/jpg;base64," + data + "\"/>");
+        if (image.hasAlphaChannel())
+        {
+            image.save(&buffer, "png");
+            const QByteArray data = buffer.buffer().toBase64();
+            textCursor().insertHtml("<img src=\"data:image/png;base64," + data + "\"/>");
+        }
+        else
+        {
+            image.save(&buffer, "jpeg", 75);
+            const QByteArray data = buffer.buffer().toBase64();
+            textCursor().insertHtml("<img src=\"data:image/jpg;base64," + data + "\"/>");
+        }
     }
 }
 

@@ -21,6 +21,10 @@ public:
     QVariant getSetting(const QString &key) const;
     QVariant getUserInfo(const QString &key) const;
     const QHash<QString, QVariant> &getUserInfo() const;
+    void setUserInfo(const QString &key, const QVariant &value);
+
+signals:
+    void userInfoUpdated();
 
 protected:
     void changeEvent(QEvent *e);

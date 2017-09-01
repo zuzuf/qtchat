@@ -44,9 +44,6 @@ void Settings::changeEvent(QEvent *e)
 
 void Settings::loadSettings()
 {
-    settings.clear();
-    user_info.clear();
-
     QSettings config;
     config.beginGroup("main");
     settings["IncomingMessageCommand"] = config.value("IncomingMessageCommand");
@@ -77,6 +74,8 @@ void Settings::saveSettings()
     for(auto it = user_info.begin() ; it != user_info.end() ; ++it)
         config.setValue(it.key(), it.value());
     config.endGroup();
+
+    emit userInfoUpdated();
 }
 
 QVariant Settings::getSetting(const QString &key) const
@@ -92,4 +91,11 @@ QVariant Settings::getUserInfo(const QString &key) const
 const QHash<QString, QVariant> &Settings::getUserInfo() const
 {
     return user_info;
+}
+
+void Settings::setUserInfo(const QString &key, const QVariant &value)
+{
+    user_info[key] = value;
+
+    saveSettings();
 }

@@ -48,16 +48,20 @@ ChatRoom::ChatRoom(QWidget *parent, const QUuid &uuid) :
 
     connect(ui->pbRefresh, SIGNAL(pressed()), UserManager::instance(), SLOT(refreshUserList()));
 
-    QAction *a_send = new QAction("send", teNewMessage);
+    QAction *a_send = new QAction(QIcon(":/icons/fork.png"), "send", teNewMessage);
     a_send->setShortcutContext(Qt::WidgetShortcut);
     a_send->setShortcut(QKeySequence("Ctrl+Return"));
     teNewMessage->addAction(a_send);
     teNewMessage->setContextMenuPolicy(Qt::ActionsContextMenu);
     connect(a_send, SIGNAL(triggered(bool)), this, SLOT(sendMessage()));
 
-    QAction *a_screenshot = new QAction("screenshot", teNewMessage);
+    QAction *a_screenshot = new QAction(QIcon(":/icons/ksnapshot.png"), "screenshot", teNewMessage);
     connect(a_screenshot, SIGNAL(triggered(bool)), this, SLOT(takeScreenshot()));
     teNewMessage->addAction(a_screenshot);
+
+    connect(ui->cbEmotes, SIGNAL(activated(int)), this, SLOT(insertEmote(int)));
+    connect(ui->cbStatus, SIGNAL(activated(int)), this, SLOT(updateStatus(int)));
+    connect(Settings::instance(), SIGNAL(userInfoUpdated()), this, SLOT(updateStatus()));
 
     if (uuid.isNull())
     {
@@ -186,4 +190,29 @@ void ChatRoom::takeScreenshot()
 
     const QImage screenshot = screen->grabWindow(0).toImage();
     teNewMessage->dropImage(screenshot.scaled(screenshot.width() / 2, screenshot.height() / 2, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+}
+
+void ChatRoom::insertEmote(int id)
+{
+    teNewMessage->dropImage(ui->cbEmotes->itemIcon(id).pixmap(32, 32).toImage());
+}
+
+void ChatRoom::updateStatus(int status)
+{
+    const char *status_table[] = { "online", "away", "busy", "offline" };
+    Settings::instance()->setUserInfo("Status", status_table[status]);
+}
+
+void ChatRoom::updateStatus()
+{
+    const char *status_table[] = { "online", "away", "busy", "offline" };
+    const QString &status = Settings::instance()->getUserInfo("Status").toString();
+    int status_id = 0;
+    for(int i = 0 ; i < sizeof(status_table) / sizeof(status_table[0]) ; ++i)
+        if (status == status_table[i])
+        {
+            status_id = i;
+            break;
+        }
+    ui->cbStatus->setCurrentIndex(status_id);
 }

@@ -32,6 +32,9 @@ protected slots:
     void sendMessage();
     void updateTitle();
     void takeScreenshot();
+    void insertEmote(int id);
+    void updateStatus(int status);
+    void updateStatus();
 
 protected:
     void changeEvent(QEvent *e);

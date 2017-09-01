@@ -12,25 +12,26 @@
 UserWidget::UserWidget(const QUuid &uuid)
     : uuid(uuid)
 {
-    setLayout(new QHBoxLayout);
+    QHBoxLayout *layout = new QHBoxLayout;
+    setLayout(layout);
+
+    layout->setContentsMargins(0,0,0,0);
 
     lbl_icon = new QLabel;
     lbl_icon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    lbl_icon->setMinimumSize(48, 48);
-    lbl_icon->setMaximumSize(48, 48);
-    layout()->addWidget(lbl_icon);
+    lbl_icon->setMinimumSize(64, 64);
+    lbl_icon->setMaximumSize(64, 64);
+    layout->addWidget(lbl_icon);
 
     lbl_nickname = new QLabel;
     lbl_nickname->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
     lbl_nickname->setMinimumHeight(48);
     lbl_nickname->setMaximumHeight(48);
-    layout()->addWidget(lbl_nickname);
+    layout->addWidget(lbl_nickname);
+
+    layout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding));
 
     updateInfo();
-
-    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
-    setMinimumHeight(48);
-    setMaximumHeight(48);
 
     QAction *action_sendFile = new QAction(tr("Send file"));
     connect(action_sendFile, SIGNAL(triggered(bool)), this, SLOT(sendFile()));
@@ -63,10 +64,32 @@ void UserWidget::startPrivateChat()
 void UserWidget::updateInfo()
 {
     User *u = UserManager::instance()->getUser(uuid);
-    QIcon icon = QIcon::fromTheme("user-available");
-    lbl_icon->setPixmap(icon.pixmap(48,48));
-    if (u)
-        lbl_nickname->setText(u->getUserInfo()["Nickname"].toString());
+    QIcon icon;
+    const QString status = u ? u->getUserInfo()["Status"].toString() : QString("offline");
+    if (status == "away")
+        icon = QIcon::fromTheme(":/icons/im-user-away.png");
+    else if (status == "busy")
+        icon = QIcon::fromTheme(":/icons/im-user-busy.png");
+    else if (status == "offline")
+        icon = QIcon::fromTheme(":/icons/im-user-offline.png");
+    else if (status == "invisible")
+        icon = QIcon::fromTheme(":/icons/im-invisible-user.png");
     else
-        lbl_nickname->setText(QString());
+        icon = QIcon::fromTheme(":/icons/im-user.png");
+    lbl_icon->setPixmap(icon.pixmap(48,48));
+    lbl_nickname->setText(u ? u->getUserInfo()["Nickname"].toString() : QString());
+}
+
+void UserWidget::leaveEvent(QEvent *event)
+{
+    QWidget::leaveEvent(event);
+    setBackgroundRole(QPalette::Background);
+    setAutoFillBackground(false);
+}
+
+void UserWidget::enterEvent(QEvent *event)
+{
+    QWidget::enterEvent(event);
+    setBackgroundRole(QPalette::Highlight);
+    setAutoFillBackground(true);
 }

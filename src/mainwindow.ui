@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>QtChat</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../icons.qrc">
+    <normaloff>:/icons/view-conversation-balloon.png</normaloff>:/icons/view-conversation-balloon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <property name="maximumSize">
     <size>
@@ -52,8 +56,8 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Exit">
    <property name="icon">
-    <iconset theme="application-exit">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset resource="../icons.qrc">
+     <normaloff>:/icons/application-exit.png</normaloff>:/icons/application-exit.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Exit</string>
@@ -61,8 +65,8 @@
   </action>
   <action name="action_About_QtChat">
    <property name="icon">
-    <iconset theme="help-about">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset resource="../icons.qrc">
+     <normaloff>:/icons/system-help.png</normaloff>:/icons/system-help.png</iconset>
    </property>
    <property name="text">
     <string>&amp;About QtChat</string>
@@ -70,8 +74,8 @@
   </action>
   <action name="action_About_Qt">
    <property name="icon">
-    <iconset theme="help-about">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset resource="../icons.qrc">
+     <normaloff>:/icons/system-help.png</normaloff>:/icons/system-help.png</iconset>
    </property>
    <property name="text">
     <string>&amp;About Qt</string>
@@ -79,8 +83,8 @@
   </action>
   <action name="action_Settings">
    <property name="icon">
-    <iconset theme="preferences-other">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset resource="../icons.qrc">
+     <normaloff>:/icons/preferences-other.png</normaloff>:/icons/preferences-other.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Settings</string>
@@ -88,6 +92,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -58,3 +58,6 @@ FORMS += \
     src/settings.ui \
     src/sendfiledialog.ui \
     src/receivefiledialog.ui
+
+RESOURCES += \
+    icons.qrc

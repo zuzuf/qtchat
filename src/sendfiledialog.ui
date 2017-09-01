@@ -59,12 +59,20 @@
        <property name="text">
         <string>Cancel</string>
        </property>
+       <property name="icon">
+        <iconset resource="../icons.qrc">
+         <normaloff>:/icons/dialog-cancel.png</normaloff>:/icons/dialog-cancel.png</iconset>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pbOk">
        <property name="text">
         <string>Ok</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../icons.qrc">
+         <normaloff>:/icons/dialog-ok-apply.png</normaloff>:/icons/dialog-ok-apply.png</iconset>
        </property>
       </widget>
      </item>
@@ -85,7 +93,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>pbCancel</sender>

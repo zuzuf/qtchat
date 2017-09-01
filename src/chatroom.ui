@@ -10,6 +10,10 @@
     <height>371</height>
    </rect>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../icons.qrc">
+    <normaloff>:/icons/view-conversation-balloon.png</normaloff>:/icons/view-conversation-balloon.png</iconset>
+  </property>
   <property name="windowTitle">
    <string>ChatRoom</string>
   </property>
@@ -28,11 +32,142 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>New message</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>New message</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cbEmotes">
+          <property name="maximumSize">
+           <size>
+            <width>64</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="currentText">
+           <string notr="true"/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-angel.png</normaloff>:/icons/face-angel.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-embarrassed.png</normaloff>:/icons/face-embarrassed.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-kiss.png</normaloff>:/icons/face-kiss.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-laugh.png</normaloff>:/icons/face-laugh.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-plain.png</normaloff>:/icons/face-plain.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-raspberry.png</normaloff>:/icons/face-raspberry.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-sad.png</normaloff>:/icons/face-sad.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-smile-big.png</normaloff>:/icons/face-smile-big.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-smile.png</normaloff>:/icons/face-smile.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-surprise.png</normaloff>:/icons/face-surprise.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-uncertain.png</normaloff>:/icons/face-uncertain.png</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../icons.qrc">
+             <normaloff>:/icons/face-wink.png</normaloff>:/icons/face-wink.png</iconset>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QFrame" name="frmNewMessage">
@@ -58,12 +193,62 @@
         <property name="text">
          <string>Send</string>
         </property>
+        <property name="icon">
+         <iconset resource="../icons.qrc">
+          <normaloff>:/icons/fork.png</normaloff>:/icons/fork.png</iconset>
+        </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
      <layout class="QVBoxLayout" name="vlUsers">
+      <item>
+       <widget class="QComboBox" name="cbStatus">
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <item>
+         <property name="text">
+          <string>online</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../icons.qrc">
+           <normaloff>:/icons/im-user.png</normaloff>:/icons/im-user.png</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>away</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../icons.qrc">
+           <normaloff>:/icons/im-user-away.png</normaloff>:/icons/im-user-away.png</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>busy</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../icons.qrc">
+           <normaloff>:/icons/im-user-busy.png</normaloff>:/icons/im-user-busy.png</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>offline</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../icons.qrc">
+           <normaloff>:/icons/im-user-offline.png</normaloff>:/icons/im-user-offline.png</iconset>
+         </property>
+        </item>
+       </widget>
+      </item>
       <item>
        <widget class="QLabel" name="lblUsers">
         <property name="text">
@@ -95,6 +280,10 @@
         <property name="text">
          <string>Refresh</string>
         </property>
+        <property name="icon">
+         <iconset resource="../icons.qrc">
+          <normaloff>:/icons/view-refresh.png</normaloff>:/icons/view-refresh.png</iconset>
+        </property>
        </widget>
       </item>
      </layout>
@@ -102,6 +291,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
