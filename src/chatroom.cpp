@@ -194,18 +194,18 @@ void ChatRoom::takeScreenshot()
 
 void ChatRoom::insertEmote(int id)
 {
-    teNewMessage->dropImage(ui->cbEmotes->itemIcon(id).pixmap(32, 32).toImage());
+    teNewMessage->dropImage(ui->cbEmotes->itemIcon(id).pixmap(24, 24).toImage());
 }
 
 void ChatRoom::updateStatus(int status)
 {
-    const char *status_table[] = { "online", "away", "busy", "offline" };
+    const char *status_table[] = { "online", "away", "busy", "offline", "invisible" };
     Settings::instance()->setUserInfo("Status", status_table[status]);
 }
 
 void ChatRoom::updateStatus()
 {
-    const char *status_table[] = { "online", "away", "busy", "offline" };
+    const char *status_table[] = { "online", "away", "busy", "offline", "invisible" };
     const QString &status = Settings::instance()->getUserInfo("Status").toString();
     int status_id = 0;
     for(int i = 0 ; i < sizeof(status_table) / sizeof(status_table[0]) ; ++i)

@@ -247,6 +247,15 @@
            <normaloff>:/icons/im-user-offline.png</normaloff>:/icons/im-user-offline.png</iconset>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>invisible</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../icons.qrc">
+           <normaloff>:/icons/im-invisible-user.png</normaloff>:/icons/im-invisible-user.png</iconset>
+         </property>
+        </item>
        </widget>
       </item>
       <item>

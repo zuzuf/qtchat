@@ -29,8 +29,9 @@ public:
         MSG_TYPE_FILE_REQUEST,
         MSG_TYPE_FILE_ACK,
         MSG_TYPE_FILE_CANCEL,
-        MSG_TYPE_FILE_CHUNK
-	};
+        MSG_TYPE_FILE_CHUNK,
+        MSG_TYPE_USER_LEAVE,
+    };
 
 public:
 	explicit MessagingLayer(QTcpSocket *sock);
@@ -42,6 +43,7 @@ signals:
     void newFileACK(const QUuid &transfer_uuid);
     void newFileCancel(const QUuid &transfer_uuid);
     void newUserInfo(QHash<QString, QVariant> user_info);
+    void userLeft();
 
 public slots:
     void sendTextMessage(const QUuid &chatroom_uuid, const QString &msg);
@@ -50,6 +52,7 @@ public slots:
     void sendFileACK(const QUuid &transfer_uuid);
     void sendFileCancel(const QUuid &transfer_uuid);
     void sendFileChunk(const QUuid &transfer_uuid, const QByteArray &data);
+    void sendUserLeft();
 
 private slots:
 	void readData();

@@ -93,6 +93,9 @@ void MessagingLayer::processMessage(const QByteArray &msg)
             emit newFileCancel(transfer_uuid);
         }
         break;
+    case MSG_TYPE_USER_LEAVE:
+        emit userLeft();
+        break;
     }
 }
 
@@ -160,6 +163,16 @@ void MessagingLayer::sendFileCancel(const QUuid &transfer_uuid)
     QDataStream stream(&buffer, QIODevice::WriteOnly);
     stream.setVersion(QDataStream::Qt_5_2);
     stream << qint32(MSG_TYPE_FILE_CANCEL) << transfer_uuid;
+
+    sendRawMessage(buffer);
+}
+
+void MessagingLayer::sendUserLeft()
+{
+    QByteArray buffer;
+    QDataStream stream(&buffer, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_5_2);
+    stream << qint32(MSG_TYPE_USER_LEAVE);
 
     sendRawMessage(buffer);
 }

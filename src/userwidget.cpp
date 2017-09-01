@@ -66,18 +66,35 @@ void UserWidget::updateInfo()
     User *u = UserManager::instance()->getUser(uuid);
     QIcon icon;
     const QString status = u ? u->getUserInfo()["Status"].toString() : QString("offline");
+    setVisible(status != "invisible");
     if (status == "away")
+    {
+        setToolTip(tr("away"));
         icon = QIcon::fromTheme(":/icons/im-user-away.png");
+    }
     else if (status == "busy")
+    {
+        setToolTip(tr("busy"));
         icon = QIcon::fromTheme(":/icons/im-user-busy.png");
+    }
     else if (status == "offline")
+    {
+        setToolTip(tr("offline"));
         icon = QIcon::fromTheme(":/icons/im-user-offline.png");
+    }
     else if (status == "invisible")
+    {
+        setToolTip(tr("invisible"));
         icon = QIcon::fromTheme(":/icons/im-invisible-user.png");
+    }
     else
+    {
+        setToolTip(tr("online"));
         icon = QIcon::fromTheme(":/icons/im-user.png");
+    }
     lbl_icon->setPixmap(icon.pixmap(48,48));
-    lbl_nickname->setText(u ? u->getUserInfo()["Nickname"].toString() : QString());
+    if (u)
+        lbl_nickname->setText(u->getUserInfo()["Nickname"].toString());
 }
 
 void UserWidget::leaveEvent(QEvent *event)

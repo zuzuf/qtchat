@@ -5,6 +5,7 @@
 #include <QDebug>
 #include "chatroom.h"
 #include "receivefiledialog.h"
+#include <QApplication>
 
 User::User(QTcpSocket *sock)
 	: QObject(sock),
@@ -12,6 +13,9 @@ User::User(QTcpSocket *sock)
 	  sock(sock),
 	  ml(new MessagingLayer(sock))
 {
+    connect(sock, SIGNAL(disconnected()), this, SLOT(deleteLater()));
+    connect(sock, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(deleteLater()));
+
     onConnection();
 }
 
@@ -55,6 +59,8 @@ void User::onConnection()
     connect(ml, SIGNAL(newTextMessage(QUuid,QString)), this, SLOT(publishMessage(QUuid,QString)));
     connect(ml, SIGNAL(newFileRequest(QUuid,QString,qint64)), this, SLOT(handleNewFileRequest(QUuid,QString,qint64)));
     connect(Settings::instance(), SIGNAL(userInfoUpdated()), this, SLOT(sendUserInfo()));
+    connect(qApp, SIGNAL(aboutToQuit()), ml, SLOT(sendUserLeft()));
+    connect(ml, SIGNAL(userLeft()), this, SLOT(deleteLater()));
 
     sock->setSocketOption(QTcpSocket::LowDelayOption, 1);
     sock->setSocketOption(QTcpSocket::KeepAliveOption, 1);
