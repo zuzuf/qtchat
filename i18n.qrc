@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>i18n/qtchat_en.qm</file>
+        <file>i18n/qtchat_fr.qm</file>
+    </qresource>
+</RCC>

@@ -60,4 +60,8 @@ FORMS += \
     src/receivefiledialog.ui
 
 RESOURCES += \
-    icons.qrc
+    icons.qrc \
+    i18n.qrc
+
+TRANSLATIONS += i18n/qtchat_en.ts \
+              i18n/qtchat_fr.ts
