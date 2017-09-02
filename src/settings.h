@@ -32,11 +32,13 @@ protected:
 protected slots:
     void loadSettings();
     void saveSettings();
+    void changeAvatar();
 
 private:
     Ui::Settings *ui;
     QHash<QString, QVariant> settings;
     QHash<QString, QVariant> user_info;
+    QImage avatar;
 
 private:
     static Settings *s_instance;

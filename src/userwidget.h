@@ -18,6 +18,7 @@ public slots:
     void sendFile();
     void startPrivateChat();
     void updateInfo();
+    void showDetails();
 
 protected:
     virtual void enterEvent(QEvent *event);
@@ -26,6 +27,7 @@ protected:
 private:
     const QUuid uuid;
     QLabel *lbl_icon;
+    QLabel *lbl_avatar;
     QLabel *lbl_nickname;
 };
 

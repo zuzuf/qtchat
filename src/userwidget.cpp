@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include "sendfiledialog.h"
 #include "chatroom.h"
+#include "userdetailsdialog.h"
 
 UserWidget::UserWidget(const QUuid &uuid)
     : uuid(uuid)
@@ -22,6 +23,12 @@ UserWidget::UserWidget(const QUuid &uuid)
     lbl_icon->setMinimumSize(64, 64);
     lbl_icon->setMaximumSize(64, 64);
     layout->addWidget(lbl_icon);
+
+    lbl_avatar = new QLabel;
+    lbl_avatar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    lbl_avatar->setMinimumSize(64, 64);
+    lbl_avatar->setMaximumSize(64, 64);
+    layout->addWidget(lbl_avatar);
 
     lbl_nickname = new QLabel;
     lbl_nickname->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
@@ -40,6 +47,10 @@ UserWidget::UserWidget(const QUuid &uuid)
     QAction *action_privateChat = new QAction(tr("Private chat"));
     connect(action_privateChat, SIGNAL(triggered(bool)), this, SLOT(startPrivateChat()));
     addAction(action_privateChat);
+
+    QAction *action_details = new QAction(tr("Details"));
+    connect(action_details, SIGNAL(triggered(bool)), this, SLOT(showDetails()));
+    addAction(action_details);
 
     setContextMenuPolicy(Qt::ActionsContextMenu);
 
@@ -94,7 +105,10 @@ void UserWidget::updateInfo()
     }
     lbl_icon->setPixmap(icon.pixmap(48,48));
     if (u)
+    {
         lbl_nickname->setText(u->getUserInfo()["Nickname"].toString());
+        lbl_avatar->setPixmap(QPixmap::fromImage(u->getUserInfo()["Avatar"].value<QImage>().scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation)));
+    }
 }
 
 void UserWidget::leaveEvent(QEvent *event)
@@ -109,4 +123,10 @@ void UserWidget::enterEvent(QEvent *event)
     QWidget::enterEvent(event);
     setBackgroundRole(QPalette::Highlight);
     setAutoFillBackground(true);
+}
+
+void UserWidget::showDetails()
+{
+    UserDetailsDialog *details_dlg = new UserDetailsDialog(uuid, this);
+    details_dlg->show();
 }

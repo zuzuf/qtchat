@@ -37,7 +37,8 @@ SOURCES += \
     src/userlist.cpp \
     src/userwidget.cpp \
     src/sendfiledialog.cpp \
-    src/receivefiledialog.cpp
+    src/receivefiledialog.cpp \
+    src/userdetailsdialog.cpp
 
 HEADERS += \
         src/mainwindow.h \
@@ -50,14 +51,16 @@ HEADERS += \
     src/userlist.h \
     src/userwidget.h \
     src/sendfiledialog.h \
-    src/receivefiledialog.h
+    src/receivefiledialog.h \
+    src/userdetailsdialog.h
 
 FORMS += \
         src/mainwindow.ui \
     src/chatroom.ui \
     src/settings.ui \
     src/sendfiledialog.ui \
-    src/receivefiledialog.ui
+    src/receivefiledialog.ui \
+    src/userdetailsdialog.ui
 
 RESOURCES += \
     icons.qrc \

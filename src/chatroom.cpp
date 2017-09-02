@@ -11,6 +11,7 @@
 #include <QProcess>
 #include <QScreen>
 #include <QWindow>
+#include <QSplitter>
 
 QHash<QUuid, ChatRoom *> *ChatRoom::s_instance = nullptr;
 
@@ -36,6 +37,16 @@ ChatRoom::ChatRoom(QWidget *parent, const QUuid &uuid) :
     uuid(uuid)
 {
     ui->setupUi(this);
+
+    QSplitter *splitter = new QSplitter(Qt::Vertical);
+    ui->dockWidgetContents->layout()->addWidget(splitter);
+    splitter->addWidget(ui->teHistory);
+    splitter->addWidget(ui->wNewMessage);
+    ui->wNewMessage->layout()->setContentsMargins(0,0,0,0);
+
+    ui->vlUsers->setParent(nullptr);
+    static_cast<QHBoxLayout*>(ui->dockWidgetContents->layout())->addLayout(ui->vlUsers);
+
     teNewMessage = new TextEdit;
     ui->frmNewMessage->setLayout(new QVBoxLayout);
     ui->frmNewMessage->layout()->setContentsMargins(0,0,0,0);
@@ -72,6 +83,8 @@ ChatRoom::ChatRoom(QWidget *parent, const QUuid &uuid) :
         ui->pbRefresh->setVisible(false);
     connect(ui->pbSend, SIGNAL(pressed()), this, SLOT(sendMessage()));
     connect(UserManager::instance(), SIGNAL(usersUpdated()), this, SLOT(updateTitle()));
+
+    updateStatus();
     show();
 }
 
@@ -207,8 +220,8 @@ void ChatRoom::updateStatus()
 {
     const char *status_table[] = { "online", "away", "busy", "offline", "invisible" };
     const QString &status = Settings::instance()->getUserInfo("Status").toString();
-    int status_id = 0;
-    for(int i = 0 ; i < sizeof(status_table) / sizeof(status_table[0]) ; ++i)
+    quint32 status_id = 0;
+    for(quint32 i = 0 ; i < sizeof(status_table) / sizeof(status_table[0]) ; ++i)
         if (status == status_table[i])
         {
             status_id = i;

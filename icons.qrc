@@ -27,5 +27,6 @@
         <file>icons/view-refresh.png</file>
         <file>icons/fork.png</file>
         <file>icons/ksnapshot.png</file>
+        <file>icons/meeting-participant.png</file>
     </qresource>
 </RCC>
