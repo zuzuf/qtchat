@@ -1,0 +1,13 @@
+[Desktop Entry]
+Comment=Simple serverless LAN chat
+Exec=qshare
+GenericName=LAN chat
+GenericName[fr]=Chat local
+Icon=qtchat
+Name[fr]=QtChat
+Name=QtChat
+StartupNotify=true
+Terminal=false
+Type=Application
+X-KDE-SubstituteUID=false
+Categories=Network;Qt;

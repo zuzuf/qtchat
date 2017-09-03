@@ -2,3 +2,4 @@ CMakeCache.txt
 CMakeFiles
 *.deb
 *.user
+i18n.qrc

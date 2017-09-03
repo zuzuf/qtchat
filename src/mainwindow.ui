@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../icons.qrc">
-    <normaloff>:/icons/view-conversation-balloon.png</normaloff>:/icons/view-conversation-balloon.png</iconset>
+    <normaloff>:/icons/qtchat.png</normaloff>:/icons/qtchat.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="maximumSize">
