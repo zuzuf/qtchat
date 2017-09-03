@@ -57,6 +57,7 @@ add_definitions(-DAPP_NAME=\"${CMAKE_PROJECT_NAME}\"
 set(CMAKE_CXX_FLAGS "-std=gnu++11")
 
 set(QTCHAT_SOURCES src/main.cpp
+    src/aboutdialog.cpp
     src/mainwindow.cpp
     src/user.cpp
     src/messaginglayer.cpp
@@ -71,6 +72,7 @@ set(QTCHAT_SOURCES src/main.cpp
     src/userdetailsdialog.cpp)
 
 set(QTCHAT_HEADERS src/mainwindow.h
+    src/aboutdialog.h
     src/user.h
     src/messaginglayer.h
     src/chatroom.h

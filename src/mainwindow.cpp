@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QSystemTrayIcon>
 #include <QMenu>
+#include "aboutdialog.h"
 
 MainWindow *MainWindow::s_instance = nullptr;
 
@@ -29,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_Settings, SIGNAL(triggered(bool)), Settings::instance(), SLOT(open()));
 
     // menu help
+    connect(ui->action_About_QtChat, SIGNAL(triggered(bool)), AboutDialog::instance(), SLOT(show()));
     connect(ui->action_About_Qt, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt()));
 
     ChatRoom::instance();
