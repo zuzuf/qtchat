@@ -1,6 +1,6 @@
 [Desktop Entry]
 Comment=Simple serverless LAN chat
-Exec=qshare
+Exec=qtchat
 GenericName=LAN chat
 GenericName[fr]=Chat local
 Icon=qtchat

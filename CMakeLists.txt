@@ -169,7 +169,7 @@ IF(UNIX)
     SET(CPACK_PACKAGE_CONTACT "zuzuf86@gmail.com")
     SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Roland Brochard")
     SET(CPACK_DEBIAN_PACKAGE_SECTION "network")
-    SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt5-core, libqt5-widgets, libqt5-gui, libqt5-network")
+    SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt5core5a, libqt5widgets5, libqt5gui5, libqt5network5")
     SET(CPACK_PACKAGE_EXECUTABLES "qtchat")
 
 ELSEIF(WIN32)
