@@ -40,15 +40,15 @@ UserWidget::UserWidget(const QUuid &uuid)
 
     updateInfo();
 
-    QAction *action_sendFile = new QAction(tr("Send file"));
+    QAction *action_sendFile = new QAction(tr("Send file"), this);
     connect(action_sendFile, SIGNAL(triggered(bool)), this, SLOT(sendFile()));
     addAction(action_sendFile);
 
-    QAction *action_privateChat = new QAction(tr("Private chat"));
+    QAction *action_privateChat = new QAction(tr("Private chat"), this);
     connect(action_privateChat, SIGNAL(triggered(bool)), this, SLOT(startPrivateChat()));
     addAction(action_privateChat);
 
-    QAction *action_details = new QAction(tr("Details"));
+    QAction *action_details = new QAction(tr("Details"), this);
     connect(action_details, SIGNAL(triggered(bool)), this, SLOT(showDetails()));
     addAction(action_details);
 
