@@ -6,7 +6,10 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    a.setApplicationName("Qtchat");
+    QApplication::setApplicationName(APP_NAME);
+    QApplication::setOrganizationName(ORG_NAME);
+    QApplication::setApplicationVersion(APP_VERSION);
+
     a.setQuitOnLastWindowClosed(false);
 
     QTranslator translator;
